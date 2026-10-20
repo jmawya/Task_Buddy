@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:task_buddy/Screens/profile.dart';
 import 'calendar_screen.dart';
@@ -61,30 +60,18 @@ class _HomeScreenState extends State<HomeScreen> {
       dueTime: 'Today, 6:00 PM',
       isCompleted: true,
     ),
-    TaskItem(
-      title: 'Read a book',
-      dueTime: 'Today, 8:00 PM',
-    ),
-    TaskItem(
-      title: 'Workout',
-      dueTime: 'Tomorrow, 7:00 AM',
-      isCompleted: true,
-    ),
-    TaskItem(
-      title: 'Prepare presentation',
-      dueTime: 'Tomorrow, 10:00 AM',
-    ),
-    TaskItem(
-      title: 'Meet with friend',
-      dueTime: 'Tomorrow, 5:00 PM',
-    ),
+    TaskItem(title: 'Read a book', dueTime: 'Today, 8:00 PM'),
+    TaskItem(title: 'Workout', dueTime: 'Tomorrow, 7:00 AM', isCompleted: true),
+    TaskItem(title: 'Prepare presentation', dueTime: 'Tomorrow, 10:00 AM'),
+    TaskItem(title: 'Meet with friend', dueTime: 'Tomorrow, 5:00 PM'),
   ];
 
   // Automatically calculated task statistics.
-  int get totalTasks => tasks.length;
+  int get totalTasks {
+    return tasks.length;
+  }
 
-  int get completedTasks =>
-      tasks.where((task) => task.isCompleted).length;
+  int get completedTasks => tasks.where((task) => task.isCompleted).length;
 
   int get pendingTasks => totalTasks - completedTasks;
 
@@ -137,12 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (title != null && title.trim().isNotEmpty) {
       setState(() {
-        tasks.add(
-          TaskItem(
-            title: title.trim(),
-            dueTime: 'No due date',
-          ),
-        );
+        tasks.add(TaskItem(title: title.trim(), dueTime: 'No due date'));
       });
     }
   }
@@ -150,41 +132,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'TaskBuddy',
-          style: TextStyle(
-            fontSize: 28,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: const Color(0xff4d64ea),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.search,
-              color: Colors.white,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.more_vert,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
-
       // Display the selected page.
       body: IndexedStack(
         index: selectedIndex,
-        children: [
-          buildHomeContent(),
-          CalendarScreen(),
-          Profile(),
-        ],
+        children: [buildHomeContent(), CalendarScreen(), Profile()],
       ),
 
       bottomNavigationBar: NavigationBar(
@@ -195,147 +146,144 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
         destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
+          NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
           NavigationDestination(
             icon: Icon(Icons.calendar_month),
             label: 'Calendar',
           ),
-          NavigationDestination(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
+          NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
 
       floatingActionButton: selectedIndex == 0
           ? FloatingActionButton(
-        onPressed: addTask,
-        backgroundColor: const Color(0xff4d64ea),
-        foregroundColor: Colors.white,
-        child: const Icon(Icons.add),
-      )
+              onPressed: addTask,
+              backgroundColor: const Color(0xff4d64ea),
+              foregroundColor: Colors.white,
+              child: const Icon(Icons.add),
+            )
           : null,
     );
   }
 
   // Home page content.
   Widget buildHomeContent() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Greeting section.
-          Row(
-            children: [
-              Icon(
-                getIcon(),
-                color: Colors.amber,
-                size: 40,
-              ),
-              const SizedBox(width: 20),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${getgreeting()},',
-                    style: const TextStyle(fontSize: 22),
-                  ),
-                  Text(
-                    userName?.trim().isNotEmpty == true
-                        ? '${userName!.trim()}!'
-                        : 'Guest!',
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'TaskBuddy',
+          style: TextStyle(fontSize: 28, color: Colors.white),
+        ),
+        backgroundColor: const Color(0xff4d64ea),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.search, color: Colors.white),
           ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.more_vert, color: Colors.white),
+          ),
+        ],
+      ),
 
-          const SizedBox(height: 24),
-
-          // Total, completed, and pending tasks.
-          Container(
-            padding: const EdgeInsets.symmetric(
-              vertical: 20,
-              horizontal: 8,
-            ),
-            decoration: BoxDecoration(
-              color: const Color(0xffededff),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Row(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Greeting section.
+            Row(
               children: [
-                buildStat('Total', totalTasks),
-                buildDivider(),
-                buildStat('Completed', completedTasks),
-                buildDivider(),
-                buildStat('Pending', pendingTasks),
+                Icon(getIcon(), color: Colors.amber, size: 40),
+                const SizedBox(width: 20),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${getgreeting()},',
+                      style: const TextStyle(fontSize: 22),
+                    ),
+                    Text(
+                      userName?.trim().isNotEmpty == true
+                          ? '${userName!.trim()}!'
+                          : 'Guest!',
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
-          ),
 
-          const SizedBox(height: 24),
+            const SizedBox(height: 24),
 
-          // Task list heading.
-          const Text(
-            'My Tasks',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-
-          const SizedBox(height: 12),
-
-          if (tasks.isEmpty)
-            const Center(
-              child: Padding(
-                padding: EdgeInsets.all(24),
-                child: Text('No tasks yet. Tap + to add a task.'),
+            // Total, completed, and pending tasks.
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 8),
+              decoration: BoxDecoration(
+                color: const Color(0xffededff),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Row(
+                children: [
+                  buildStat('Total', totalTasks),
+                  buildDivider(),
+                  buildStat('Completed', completedTasks),
+                  buildDivider(),
+                  buildStat('Pending', pendingTasks),
+                ],
               ),
             ),
 
-          // Display each task.
-          ...tasks.asMap().entries.map((entry) {
-            final index = entry.key;
-            final task = entry.value;
+            const SizedBox(height: 24),
 
-            return Card(
-              margin: const EdgeInsets.only(bottom: 10),
-              child: ListTile(
-                leading: Checkbox(
-                  value: task.isCompleted,
-                  activeColor: Colors.green,
-                  onChanged: (value) {
-                    if (value != null) {
-                      toggleTask(index, value);
-                    }
-                  },
-                ),
-                title: Text(
-                  task.title,
+            // Task list heading.
+            const Text(
+              'My Tasks',
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
 
-                ),
-                subtitle: Text(task.dueTime),
-                trailing: Icon(
-                  task.isCompleted
-                      ? Icons.check_circle
-                      : Icons.schedule,
-                  color: task.isCompleted
-                      ? Colors.green
-                      : Colors.blue,
+            const SizedBox(height: 12),
+
+            if (tasks.isEmpty)
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(24),
+                  child: Text('No tasks yet. Tap + to add a task.'),
                 ),
               ),
-            );
-          }),
-        ],
+
+            // Display each task.
+            ...tasks.asMap().entries.map((entry) {
+              final index = entry.key;
+              final task = entry.value;
+
+              return Card(
+                margin: const EdgeInsets.only(bottom: 10),
+                child: ListTile(
+                  leading: Checkbox(
+                    value: task.isCompleted,
+                    activeColor: Colors.green,
+                    onChanged: (value) {
+                      if (value != null) {
+                        toggleTask(index, value);
+                      }
+                    },
+                  ),
+                  title: Text(task.title),
+                  subtitle: Text(task.dueTime),
+                  trailing: Icon(
+                    task.isCompleted ? Icons.check_circle : Icons.schedule,
+                    color: task.isCompleted ? Colors.green : Colors.blue,
+                  ),
+                ),
+              );
+            }),
+          ],
+        ),
       ),
     );
   }
@@ -357,10 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Text(
             label,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Color(0xff0c44d4),
-            ),
+            style: const TextStyle(fontSize: 14, color: Color(0xff0c44d4)),
           ),
         ],
       ),
@@ -369,10 +314,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Divider between statistics.
   Widget buildDivider() {
-    return Container(
-      width: 1,
-      height: 45,
-      color: const Color(0xffd4d8f8),
-    );
+    return Container(width: 1, height: 45, color: const Color(0xffd4d8f8));
   }
 }
