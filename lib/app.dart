@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'Screens/home_screen.dart';
+import 'Screens/main_home_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -9,7 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Task buddy',
-      home: HomeScreen()
+      home:  MainHomeScreen()
     );
   }
 }
