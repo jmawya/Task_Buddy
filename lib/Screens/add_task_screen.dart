@@ -8,17 +8,17 @@ class AddTaskScreen extends StatefulWidget {
 }
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
-  final TextEditingController taskController =
-  TextEditingController();
+
+  final TextEditingController taskController = TextEditingController();
 
   DateTime selectedDate = DateTime.now();
 
-  Future<void> pickDate() async {
+  Future<void> pickDate()  async {
     final date = await showDatePicker(
       context: context,
       initialDate: selectedDate,
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2035),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(3000),
     );
 
     if (date != null) {
@@ -39,18 +39,17 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     });
   }
 
-  @override
-  void dispose() {
-    taskController.dispose();
-    super.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add New Task'),
-        backgroundColor: const Color(0xff4d64ea),
+        backgroundColor:  Color(0xff7b51ff),
+        shape:RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15))
+        ),
         foregroundColor: Colors.white,
       ),
 
@@ -69,39 +68,51 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
             const SizedBox(height: 12),
 
+
             TextField(
-              controller: taskController,
-              maxLines: 5,
-              decoration: InputDecoration(
-                hintText: 'Write your task here...',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
+              controller:taskController,
+              maxLines:10,
+              decoration:InputDecoration(
+                hintText:'Write your task here...',
+                border:OutlineInputBorder(
+                  borderRadius:BorderRadius.all(Radius.circular(10))
+                )
+              )
             ),
+
 
             const SizedBox(height: 20),
 
             ListTile(
-              leading: const Icon(Icons.calendar_month),
-              title: const Text('Due Date'),
-              subtitle: Text(
-                '${selectedDate.day}/'
-                    '${selectedDate.month}/'
-                    '${selectedDate.year}',
-              ),
-              onTap: pickDate,
+              leading:Icon(Icons.calendar_month,size:35, color:Color(0xff770d0d)),
+              title:Text('Due Date'),
+              subtitle:Text('${selectedDate.day}/'
+                  '${selectedDate.month}/'
+                  '${selectedDate.year}'
+                  ),
+              onTap:pickDate,
             ),
 
             const SizedBox(height: 20),
 
             SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: saveTask,
-                child: const Text('Save Task'),
-              ),
-            ),
+              width:double.infinity,
+              child:ElevatedButton(
+                style:ElevatedButton.styleFrom(
+                  backgroundColor:Color(0xffa690ea),
+                  foregroundColor:Colors.white,
+                  shape:RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10))
+                  )
+                ),
+                
+                onPressed:saveTask,
+                child: Text('Save Task',style:TextStyle(
+                  fontSize:20
+                ))
+              )
+
+            )
           ],
         ),
       ),
