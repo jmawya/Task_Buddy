@@ -14,7 +14,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
   int selectedIndex=0;
   List pages=[
     HomeScreen(),
-    Profile()
+    ProfileScreen()
   ];
   @override
   Widget build(BuildContext context) {

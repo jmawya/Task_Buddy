@@ -39,9 +39,11 @@ class HomeScreen extends StatefulWidget {
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
+
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
 
   final List<Color> cardColors = const [
     Color(0xffFFE0B2), // orange
@@ -71,19 +73,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'TaskBuddy',
-          style: TextStyle(fontSize: 28, color: Colors.white),
-        ),
+        title: Text(
+                'TaskBuddy',
+                style: TextStyle(fontSize: 28, color: Colors.white),
+              ),
         backgroundColor: Color(0xff7b51ff),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+
+            },
             icon: const Icon(Icons.search, color: Colors.white),
           ),
           IconButton(
