@@ -63,6 +63,6 @@ lib/
 
 ## Author
 
-**Your Name**
+Jannatul Mawya
 - GitHub: [@jmawya](https://github.com/jmawya)
-- LinkedIn: add your LinkedIn profile link here
+- LinkedIn: https://www.linkedin.com/in/jannatul-mawya-418b3230b/
